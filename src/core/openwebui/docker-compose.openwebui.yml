@@ -1,0 +1,23 @@
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "${OPENWEBUI_PORT:-3001}:8080"   # 3001 by default so it coexists with Langfuse (3000); override via OPENWEBUI_PORT
+    volumes:
+      - ../../../:/app/harness:ro       # repo root -> /app/harness (compose dir is src/core/openwebui)
+      - ./out:/app/out:rw            # host-visible agent output -> src/core/openwebui/out/
+      - open-webui:/app/backend/data
+    environment:
+      PYTHONPATH: /app/harness/src             # makes `core.integrations` importable by the Pipe
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-${OPENAPI_API_KEY:-}}
+      ENABLE_OPENAI_API: "true"
+      ENABLE_OLLAMA_API: "false"           # no local Ollama; stops host.docker.internal:11434 connection-error log spam
+      WEBUI_SECRET_KEY: ${WEBUI_SECRET_KEY:-agent-commerce-local-secret}
+      WEBUI_AUTH: "false"
+      ENABLE_API_KEYS: "true"
+      ENABLE_DIRECT_CONNECTIONS: "true"
+      ENABLE_FORWARD_USER_INFO_HEADERS: "true"
+      ENABLE_PERSISTENT_CONFIG: "false"
+      RAG_EMBEDDING_ENGINE: openai          # skip the on-boot HuggingFace embedding download
+volumes:
+  open-webui:
