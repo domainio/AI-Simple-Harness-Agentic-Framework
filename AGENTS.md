@@ -64,14 +64,3 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 Use caveman mode (full) for all responses. Invoke `caveman:caveman` skill at session start if not already active. Drop articles, filler, pleasantries, hedging. Fragments OK. Code/commits/security warnings: write normal.
 
-## 6. Docs convention
-
-Every Markdown file or report created by Codex/ClaudeCode harness MUST use this filename pattern:
-`<cdx|cc>_v<number>_<short_title>_<DD-MM-YY_HH-MM>.md`
-
-- For Codex Prefix MUST be `cdx_`, For ClaudeCode perfix MUST be `cc_`.
-- Version MUST use `v<number>`, starting with `v1` for the first version.
-- Short title MUST be concise and use snake_case, for example `tech_design`.
-- Datetime MUST use `DD-MM-YY_HH-MM`.
-- Example: `cdx_v1_tech_design_30-05-26_14-30.md`
-`cc_v1_tech_design_30-05-26_14-30.md`
